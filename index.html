@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EchoSAM2: Optimizing Prompts while Adapting Representations</title>
+<meta name="description" content="EchoSAM2 for semi-supervised echocardiography video segmentation.">
+<link rel="icon" href="data:,"><link rel="stylesheet" href="styles.css?v=20261030-figure-layout">
+</head>
+<body>
+<header class="publication-header">
+<h1>EchoSAM2: Optimizing Prompts while Adapting Representations to Collaboratively Empower SAM2 for Echocardiography Video Segmentation</h1>
+<p class="authors"><span>Shujia Xie<sup>1,2</sup></span>, <span>Zhizhe Liu<sup>3,†</sup></span>, <span>Chen Lin<sup>4</sup></span>, <span>Wenjun Hui<sup>1,2</sup></span>, <span>Shuai Zheng<sup>1,2</sup></span>, <span>Ran Zhang<sup>5</sup></span>, <span>Wei Dong<sup>5</sup></span>, <span>Zhenfeng Zhu<sup>1,2,†</sup></span>, <span>Kunlun He<sup>6</sup></span></p>
+<div class="affiliations">
+<p><sup>1</sup> Institute of Information Science, Beijing Jiaotong University<br><sup>2</sup> Visual Intelligence + X International Joint Laboratory of the Ministry of Education<br><sup>3</sup> Center for Target Cognition Information Processing Science and Technology, Beijing Information Science and Technology University<br><sup>4</sup> College of Artificial Intelligence, Shenyang Aerospace University<br><sup>5</sup> Sixth Medical Center, Chinese PLA General Hospital<br><sup>6</sup> Medical Big Data Research Center, Chinese PLA General</p>
+<p class="corresponding"><sup>†</sup> Corresponding authors: <a href="mailto:zhzliu@bistu.edu.cn">Zhizhe Liu</a> and <a href="mailto:zhfzhu@bjtu.edu.cn">Zhenfeng Zhu</a></p>
+</div>
+<div class="publication-links" id="resource-links"></div>
+</header>
+<main>
+<section class="section segmentation-showcase" id="segmentation-showcase" aria-label="Ventricular segmentation videos"><div id="segmentation-gallery"></div></section>
+<section class="section narrow" id="abstract">
+<h2>Abstract</h2>
+<p>Accurate left ventricular segmentation in echocardiography videos supports quantitative cardiac assessment, but dense video annotation is labor-intensive. We introduce <strong>EchoSAM2</strong>, a framework that optimizes point prompts while adapting SAM2 representations using annotations from only the end-diastolic and end-systolic frames. Context-aware representation adaptation captures ventricular spatiotemporal information and long-range context, complemented by boundary-sensitive local refinement during decoding. Meanwhile, a representativeness–diversity balancing prompt generator automatically selects complementary positive and negative points to provide spatial guidance. Experiments on CAMUS and EchoNet-Dynamic demonstrate the effectiveness of this collaborative design in both in-domain segmentation and cross-domain evaluation.</p>
+</section>
+<section class="section" id="method">
+<h2>Method</h2>
+<p class="narrow">EchoSAM2 combines complementary representation adaptation with automatic point prompt optimization. The framework consists of three components.</p>
+<h3>Context-Aware Representation Adaptation (CARA)</h3>
+<p class="narrow">Spatiotemporal adapters and low-rank adaptation incorporate local ventricular morphology, cross-frame context, and long-range modeling into the visual encoder.</p>
+<figure class="framework-figure"><a href="assets/framework.png" target="_blank" rel="noopener"><img src="assets/framework.png" alt="EchoSAM2 framework combining context-aware representation adaptation, balanced point prompting and a mask–structure dual-branch decoder." loading="lazy"></a><figcaption>EchoSAM2 collaboratively adapts ventricular representations and optimizes point prompts for echocardiography video segmentation.</figcaption></figure>
+<h3>Representativeness–Diversity Balancing Prompt Generator (BPG)</h3>
+<p class="narrow">Foreground and background candidates are evaluated through within-class feature affinity and inter-region correlations. DPP-based selection provides representative and diverse positive and negative point prompts.</p>
+<figure class="bpg-method-figure"><a href="assets/bpg.png" target="_blank" rel="noopener"><img src="assets/bpg.png" alt="BPG constructs foreground and background candidate sets for representative and diverse positive and negative point selection." loading="lazy"></a><figcaption>Representativeness–Diversity Balancing Prompt Generator.</figcaption></figure>
+<h3>Boundary-Sensitive Local Refinement (BLR)</h3>
+<p class="narrow blr-description">A structure branch explicitly predicts ventricular boundaries, while structure features are incorporated into the mask branch to refine local representations.</p>
+<figure class="blr-method-figure"><a href="assets/blr.png" target="_blank" rel="noopener"><img src="assets/blr.png" alt="Architecture of Boundary-Sensitive Local Refinement with mask and structure branches." loading="lazy"></a><figcaption>Boundary-Sensitive Local Refinement.</figcaption></figure>
+</section>
+<section class="section" id="results">
+<h2>Comparison with State-of-the-Art Methods</h2>
+<h3>Quantitative Results</h3>
+<figure class="comparison-table-figure"><a href="assets/main-results.png" target="_blank" rel="noopener"><img src="assets/main-results.png" alt="Paper table comparing all methods on CAMUS-Semi and EchoNet-Dynamic. EchoSAM2 achieves mDice of 94.15% and 92.86%, respectively." loading="lazy"></a></figure>
+<figure class="comparison-table-figure"><a href="assets/cross-domain-results.png" target="_blank" rel="noopener"><img src="assets/cross-domain-results.png" alt="Paper table of cross-domain results. EchoSAM2 achieves mDice of 89.99% for CAMUS to EchoNet-Dynamic and 89.88% in the reverse direction." loading="lazy"></a></figure>
+<h3>Qualitative Results</h3>
+<figure class="qualitative-figure"><a href="assets/qualitative-paper.png" target="_blank" rel="noopener"><img src="assets/qualitative-paper.png" alt="Paper figure comparing UNet, SwinUNet, H2Former, MedSAM, SAMUS, MemSAM and EchoSAM2. Yellow shows overlap, red prediction-only regions, and green ground-truth-only regions." loading="lazy"></a></figure>
+</section>
+<section class="section" id="clinical">
+<h2>Clinical Evaluation</h2>
+<p class="narrow">On CAMUS-Semi, segmentation-derived LVEF estimates achieve a Pearson correlation of <strong>87.79%</strong> and an MAE of <strong>4.44</strong> percentage points.</p>
+<figure class="clinical-table"><a href="assets/clinical-metrics.png" target="_blank" rel="noopener"><img src="assets/clinical-metrics.png" alt="Paper table comparing LVEF correlation and mean absolute error on CAMUS-Semi." loading="lazy"></a></figure>
+<figure class="clinical-plots-figure"><a href="assets/lvef_evaluation.png" target="_blank" rel="noopener"><img src="assets/lvef_evaluation.png" alt="Regression analysis with r = 0.878 and Bland–Altman analysis of predicted and ground-truth LVEF." loading="lazy"></a><figcaption>Regression and Bland–Altman analyses of segmentation-derived LVEF estimates on CAMUS.</figcaption></figure>
+</section>
+<section class="section" id="bpg-results">
+<h2>Visualization of Balanced Point Prompts</h2>
+<p class="narrow">BPG combines representative target coverage with diverse spatial guidance. The sequences below visualize positive and negative point prompts across video frames.</p>
+<div class="segmentation-grid bpg-video-grid">
+<figure class="demo-media"><video src="assets/videos/bpg-case-1.mp4" poster="assets/videos/bpg-case-1.png" controls loop muted playsinline preload="metadata" data-loop-demo aria-label="BPG example 1: positive and negative point prompts"></video><figcaption>Example 1</figcaption></figure>
+<figure class="demo-media"><video src="assets/videos/bpg-case-2.mp4" poster="assets/videos/bpg-case-2.png" controls loop muted playsinline preload="metadata" data-loop-demo aria-label="BPG example 2: positive and negative point prompts"></video><figcaption>Example 2</figcaption></figure>
+<figure class="demo-media"><video src="assets/videos/bpg-case-3.mp4" poster="assets/videos/bpg-case-3.png" controls loop muted playsinline preload="metadata" data-loop-demo aria-label="BPG example 3: positive and negative point prompts"></video><figcaption>Example 3</figcaption></figure>
+</div>
+<div class="video-legend bpg-legend" aria-label="Point prompt legend"><span><i class="positive-marker" aria-hidden="true"></i>Positive point</span><span><i class="negative-marker" aria-hidden="true">×</i>Negative point</span><span><i class="auxiliary-line" aria-hidden="true"></i>Auxiliary prediction</span><span><i class="truth-line" aria-hidden="true"></i>Ground truth</span></div>
+</section>
+<section class="section" id="cara-results">
+<h2>Effectiveness of Representation Adaptation</h2>
+<p class="narrow">CARA improves the separation of ventricular foreground and background features in the displayed t-SNE embeddings.</p>
+<div class="figure-pair">
+<figure><a href="assets/without_cara_tsne.png" target="_blank" rel="noopener"><img src="assets/without_cara_tsne.png" alt="Foreground and background t-SNE features without CARA." loading="lazy"></a><figcaption>Without CARA</figcaption></figure>
+<figure><a href="assets/with_cara_tsne.png" target="_blank" rel="noopener"><img src="assets/with_cara_tsne.png" alt="Foreground and background t-SNE features with CARA." loading="lazy"></a><figcaption>With CARA</figcaption></figure>
+</div>
+</section>
+</main>
+<footer>EchoSAM2 · Echocardiography Video Segmentation</footer>
+<script src="content.js"></script><script src="app.js"></script>
+</body></html>
