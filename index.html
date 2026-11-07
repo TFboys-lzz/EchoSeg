@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EchoSAM2: Optimizing Prompts while Adapting Representations</title>
-<meta name="description" content="EchoSAM2 for semi-supervised echocardiography video segmentation.">
+<title>EchoSeg: Optimizing Prompts while Adapting Representations</title>
+<meta name="description" content="EchoSeg for semi-supervised echocardiography video segmentation.">
 <link rel="icon" href="data:,"><link rel="stylesheet" href="styles.css?v=20261030-figure-layout">
 </head>
 <body>
 <header class="publication-header">
-<h1>EchoSAM2: Optimizing Prompts while Adapting Representations to Collaboratively Empower SAM2 for Echocardiography Video Segmentation</h1>
+<h1>EchoSeg: Optimizing Prompts while Adapting Representations to Collaboratively Empower SAM2 for Echocardiography Video Segmentation</h1>
 <p class="authors"><span>Shujia Xie<sup>1,2</sup></span>, <span>Zhizhe Liu<sup>3,†</sup></span>, <span>Chen Lin<sup>4</sup></span>, <span>Wenjun Hui<sup>1,2</sup></span>, <span>Shuai Zheng<sup>1,2</sup></span>, <span>Ran Zhang<sup>5</sup></span>, <span>Wei Dong<sup>5</sup></span>, <span>Zhenfeng Zhu<sup>1,2,†</sup></span>, <span>Kunlun He<sup>6</sup></span></p>
 <div class="affiliations">
 <p><sup>1</sup> Institute of Information Science, Beijing Jiaotong University<br><sup>2</sup> Visual Intelligence + X International Joint Laboratory of the Ministry of Education<br><sup>3</sup> Center for Target Cognition Information Processing Science and Technology, Beijing Information Science and Technology University<br><sup>4</sup> College of Artificial Intelligence, Shenyang Aerospace University<br><sup>5</sup> Sixth Medical Center, Chinese PLA General Hospital<br><sup>6</sup> Medical Big Data Research Center, Chinese PLA General</p>
@@ -20,14 +20,14 @@
 <section class="section segmentation-showcase" id="segmentation-showcase" aria-label="Ventricular segmentation videos"><div id="segmentation-gallery"></div></section>
 <section class="section narrow" id="abstract">
 <h2>Abstract</h2>
-<p>Accurate left ventricular segmentation in echocardiography videos supports quantitative cardiac assessment, but dense video annotation is labor-intensive. We introduce <strong>EchoSAM2</strong>, a framework that optimizes point prompts while adapting SAM2 representations using annotations from only the end-diastolic and end-systolic frames. Context-aware representation adaptation captures ventricular spatiotemporal information and long-range context, complemented by boundary-sensitive local refinement during decoding. Meanwhile, a representativeness–diversity balancing prompt generator automatically selects complementary positive and negative points to provide spatial guidance. Experiments on CAMUS and EchoNet-Dynamic demonstrate the effectiveness of this collaborative design in both in-domain segmentation and cross-domain evaluation.</p>
+<p>Accurate left ventricular segmentation in echocardiography videos supports quantitative cardiac assessment, but dense video annotation is labor-intensive. We introduce <strong>EchoSeg</strong>, a framework that optimizes point prompts while adapting SAM2 representations using annotations from only the end-diastolic and end-systolic frames. Context-aware representation adaptation captures ventricular spatiotemporal information and long-range context, complemented by boundary-sensitive local refinement during decoding. Meanwhile, a representativeness–diversity balancing prompt generator automatically selects complementary positive and negative points to provide spatial guidance. Experiments on CAMUS and EchoNet-Dynamic demonstrate the effectiveness of this collaborative design in both in-domain segmentation and cross-domain evaluation.</p>
 </section>
 <section class="section" id="method">
 <h2>Method</h2>
-<p class="narrow">EchoSAM2 combines complementary representation adaptation with automatic point prompt optimization. The framework consists of three components.</p>
+<p class="narrow">EchoSeg combines complementary representation adaptation with automatic point prompt optimization. The framework consists of three components.</p>
 <h3>Context-Aware Representation Adaptation (CARA)</h3>
 <p class="narrow">Spatiotemporal adapters and low-rank adaptation incorporate local ventricular morphology, cross-frame context, and long-range modeling into the visual encoder.</p>
-<figure class="framework-figure"><a href="assets/framework.png" target="_blank" rel="noopener"><img src="assets/framework.png" alt="EchoSAM2 framework combining context-aware representation adaptation, balanced point prompting and a mask–structure dual-branch decoder." loading="lazy"></a><figcaption>EchoSAM2 collaboratively adapts ventricular representations and optimizes point prompts for echocardiography video segmentation.</figcaption></figure>
+<figure class="framework-figure"><a href="assets/framework.png" target="_blank" rel="noopener"><img src="assets/framework.png" alt="EchoSeg framework combining context-aware representation adaptation, balanced point prompting and a mask–structure dual-branch decoder." loading="lazy"></a><figcaption>EchoSeg collaboratively adapts ventricular representations and optimizes point prompts for echocardiography video segmentation.</figcaption></figure>
 <h3>Representativeness–Diversity Balancing Prompt Generator (BPG)</h3>
 <p class="narrow">Foreground and background candidates are evaluated through within-class feature affinity and inter-region correlations. DPP-based selection provides representative and diverse positive and negative point prompts.</p>
 <figure class="bpg-method-figure"><a href="assets/bpg.png" target="_blank" rel="noopener"><img src="assets/bpg.png" alt="BPG constructs foreground and background candidate sets for representative and diverse positive and negative point selection." loading="lazy"></a><figcaption>Representativeness–Diversity Balancing Prompt Generator.</figcaption></figure>
@@ -38,10 +38,10 @@
 <section class="section" id="results">
 <h2>Comparison with State-of-the-Art Methods</h2>
 <h3>Quantitative Results</h3>
-<figure class="comparison-table-figure"><a href="assets/main-results.png" target="_blank" rel="noopener"><img src="assets/main-results.png" alt="Paper table comparing all methods on CAMUS-Semi and EchoNet-Dynamic. EchoSAM2 achieves mDice of 94.15% and 92.86%, respectively." loading="lazy"></a></figure>
-<figure class="comparison-table-figure"><a href="assets/cross-domain-results.png" target="_blank" rel="noopener"><img src="assets/cross-domain-results.png" alt="Paper table of cross-domain results. EchoSAM2 achieves mDice of 89.99% for CAMUS to EchoNet-Dynamic and 89.88% in the reverse direction." loading="lazy"></a></figure>
+<figure class="comparison-table-figure"><a href="assets/main-results.png" target="_blank" rel="noopener"><img src="assets/main-results.png" alt="Paper table comparing all methods on CAMUS-Semi and EchoNet-Dynamic. EchoSeg achieves mDice of 94.15% and 92.86%, respectively." loading="lazy"></a></figure>
+<figure class="comparison-table-figure"><a href="assets/cross-domain-results.png" target="_blank" rel="noopener"><img src="assets/cross-domain-results.png" alt="Paper table of cross-domain results. EchoSeg achieves mDice of 89.99% for CAMUS to EchoNet-Dynamic and 89.88% in the reverse direction." loading="lazy"></a></figure>
 <h3>Qualitative Results</h3>
-<figure class="qualitative-figure"><a href="assets/qualitative-paper.png" target="_blank" rel="noopener"><img src="assets/qualitative-paper.png" alt="Paper figure comparing UNet, SwinUNet, H2Former, MedSAM, SAMUS, MemSAM and EchoSAM2. Yellow shows overlap, red prediction-only regions, and green ground-truth-only regions." loading="lazy"></a></figure>
+<figure class="qualitative-figure"><a href="assets/qualitative-paper.png" target="_blank" rel="noopener"><img src="assets/qualitative-paper.png" alt="Paper figure comparing UNet, SwinUNet, H2Former, MedSAM, SAMUS, MemSAM and EchoSeg. Yellow shows overlap, red prediction-only regions, and green ground-truth-only regions." loading="lazy"></a></figure>
 </section>
 <section class="section" id="clinical">
 <h2>Clinical Evaluation</h2>
@@ -68,6 +68,6 @@
 </div>
 </section>
 </main>
-<footer>EchoSAM2 · Echocardiography Video Segmentation</footer>
+<footer>EchoSeg · Echocardiography Video Segmentation</footer>
 <script src="content.js"></script><script src="app.js"></script>
 </body></html>
